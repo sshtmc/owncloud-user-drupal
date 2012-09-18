@@ -61,10 +61,10 @@ class OC_User_drupal extends OC_User_Backend {
 			return false;
 		}
 
-		$q = 'SELECT user_email FROM '. $this->drupal_db_prefix .'users WHERE name = "'. $this->db->real_escape_string($uid) .'"';
+		$q = 'SELECT mail FROM '. $this->drupal_db_prefix .'users WHERE name = "'. $this->db->real_escape_string($uid) .'"';
 		$result = $this->db->query($q);
 		$email = $result->fetch_assoc();
-		$email = $email['user_email'];
+		$email = $email['mail'];
 		OC_Preferences::setValue($uid, 'settings', 'email', $email);
 	}
 
