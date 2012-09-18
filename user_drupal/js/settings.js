@@ -1,10 +1,10 @@
 $(document).ready(function(){
-	$('#drupalform #identity').blur(function(event){
+	$('#drupal #identity').blur(function(event){
 		event.preventDefault();
-		OC.msg.startSaving('#drupalform .msg');
-		var post = $( "#drupalform" ).serialize();
+		OC.msg.startSaving('#drupal .msg');
+		var post = $( "#drupal" ).serialize();
 		$.post( 'ajax/drupal.php', post, function(data){
-			OC.msg.finishedSaving('#drupalform .msg', data);
+			OC.msg.finishedSaving('#drupal .msg', data);
 		});
 	});
 });
