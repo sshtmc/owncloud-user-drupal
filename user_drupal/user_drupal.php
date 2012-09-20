@@ -3,8 +3,8 @@
 /**
  * ownCloud
  *
- * @author Patrik Karisch
- * @copyright 2012 Patrik Karisch <patrik.karisch@abimus.com>
+ * @author Saša Tomić
+ * @copyright 2012 Saša Tomić <tomic80@gmail.com>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
@@ -61,7 +61,7 @@ class OC_User_drupal extends OC_User_Backend {
 			return false;
 		}
 
-		$q = 'SELECT mail FROM '. $this->drupal_db_prefix .'users WHERE name = "'. $this->db->real_escape_string($uid) .'"';
+		$q = 'SELECT mail FROM '. $this->drupal_db_prefix .'users WHERE name = "'. $this->db->real_escape_string($uid) .'" AND status = 1';
 		$result = $this->db->query($q);
 		$email = $result->fetch_assoc();
 		$email = $email['mail'];
@@ -79,7 +79,7 @@ class OC_User_drupal extends OC_User_Backend {
 			return false;
 		}
 
-		$query = 'SELECT name FROM '. $this->drupal_db_prefix .'users WHERE name = "' . $this->db->real_escape_string($uid) . '"';
+		$query = 'SELECT name FROM '. $this->drupal_db_prefix .'users WHERE name = "' . $this->db->real_escape_string($uid) . '" AND status = 1';
 		$query .= ' AND pass = "' . md5($this->db->real_escape_string($password)) . '"';
 		$result = $this->db->query($query);
 		$row = $result->fetch_assoc();
@@ -93,7 +93,7 @@ class OC_User_drupal extends OC_User_Backend {
 
 	/**
 	 * @brief Get a list of all users
-	 * @returns array with all uids
+	 * @returns array with all enabled uids
 	 *
 	 * Get a list of all users
 	 */
@@ -103,7 +103,7 @@ class OC_User_drupal extends OC_User_Backend {
 			return $users;
 		}
 
-		$q = 'SELECT name FROM '. $this->drupal_db_prefix .'users';
+		$q = 'SELECT name FROM '. $this->drupal_db_prefix .'users WHERE status = 1';
 		$result = $this->db->query($q);
 		while ($row = $result->fetch_assoc()) {
 			if(!empty($row['name'])) {
@@ -124,7 +124,7 @@ class OC_User_drupal extends OC_User_Backend {
 			return false;
 		}
 
-		$q = 'SELECT name FROM '. $this->drupal_db_prefix .'users WHERE name = "'. $this->db->real_escape_string($uid) .'"';
+		$q = 'SELECT name FROM '. $this->drupal_db_prefix .'users WHERE name = "'. $this->db->real_escape_string($uid) .'" AND status = 1';
 		$result = $this->db->query($q);
 		return $result->num_rows > 0;
 	}
